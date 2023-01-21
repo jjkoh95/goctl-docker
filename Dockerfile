@@ -9,9 +9,9 @@ RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
 # We don't actually have to care about OS
 # ARG TARGETOS
-ARG TARGETARCH=amd64
+ARG TARGETARCH
 
-ARG GOCTL_VERSION=v1.4.3
+ARG GOCTL_VERSION
 
 # Get goctl binaries from github
 RUN curl -L -o goctl.tar.gz \
