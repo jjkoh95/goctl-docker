@@ -55,6 +55,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Strip v-prefix
+        run: |
+          VERSION=${{ steps.meta.outputs.tags }}
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
+
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
@@ -62,7 +67,7 @@ jobs:
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${ VERSION }
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
