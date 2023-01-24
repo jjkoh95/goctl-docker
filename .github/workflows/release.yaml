@@ -53,12 +53,7 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          docker buildx build \
-          --build-arg GOCTL_VERSION=$GOCTL_VERSION \
-          --platform=linux/amd64,linux/arm64 \
-          -t jjkoh95/goctl:$GOCTL_VERSION \
-          -o type=registry \
-          .
+          make docker-build-push
 
       # # Extract metadata (tags, labels) for Docker
       # # https://github.com/docker/metadata-action
