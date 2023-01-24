@@ -54,7 +54,7 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          export GOCTL_VERSION=1.4.3
+          export GOCTL_VERSION=v1.4.3
           make docker-build-push
 
       # # Extract metadata (tags, labels) for Docker
