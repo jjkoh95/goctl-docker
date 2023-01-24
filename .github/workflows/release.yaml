@@ -24,6 +24,11 @@ jobs:
       id-token: write
 
     steps:
+      - name: Strip v-prefix
+        run: |
+          VERSION=${{ steps.meta.outputs.tags }}
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
       # Install the cosign tool except on PR
@@ -32,7 +37,6 @@ jobs:
         uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
         with:
           cosign-release: 'v1.11.0'
-
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
@@ -54,11 +58,6 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Strip v-prefix
-        run: |
-          VERSION=${{ steps.meta.outputs.tags }}
-          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
