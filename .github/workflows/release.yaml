@@ -25,11 +25,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: Strip v-prefix
-        run: |
-          TAG=${{ steps.meta.outputs.tags }}
-          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
-
       - name: Checkout repository
         uses: actions/checkout@v3
       # Install the cosign tool except on PR
@@ -54,7 +49,7 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          export GOCTL_VERSION=v1.4.3
+          export GOCTL_VERSION=${{ steps.meta.outputs.tags }}
           make docker-build-push
 
       # # Extract metadata (tags, labels) for Docker
