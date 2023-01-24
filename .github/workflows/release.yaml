@@ -49,7 +49,7 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          export GOCTL_VERSION=${{ steps.meta.outputs.tags }}
+          echo "GOCTL_VERSION=${GITHUB_REF#refs/*/}"
           make docker-build-push
 
       # # Extract metadata (tags, labels) for Docker
