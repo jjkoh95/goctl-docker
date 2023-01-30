@@ -13,3 +13,12 @@ docker-build-push:
 	-t jjkoh95/goctl:latest \
 	-o type=registry \
 	.
+
+# local testing
+docker-build:
+	docker buildx build \
+	--build-arg GOCTL_VERSION=${GOCTL_VERSION} \
+	--platform=linux/amd64 \
+	-t jjkoh95/goctl:${GOCTL_VERSION} \
+	-o type=docker \
+	.

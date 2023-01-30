@@ -21,5 +21,7 @@ RUN curl -L -o goctl.tar.gz \
 
 RUN tar xzf goctl.tar.gz
 
+RUN mv goctl /usr/bin
+
 # Set entrypoint
-ENTRYPOINT [ "./goctl" ]
+ENTRYPOINT [ "goctl" ]
