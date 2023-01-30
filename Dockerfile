@@ -1,5 +1,7 @@
 FROM alpine:3
 
+WORKDIR /app
+
 RUN apk update
 RUN apk add curl
 
